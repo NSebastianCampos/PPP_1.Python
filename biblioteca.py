@@ -35,12 +35,38 @@ def cargar_datos(nombres, generos, legajos, estados, calificaciones):
     """
     # Datos hardcodeados para la demostración
     datos_estudiantes = [
-        ("Lopez, Lara", "F", 123456, 1, [8, 7, 9, 10, 6]),
-        ("Campos, Sebastian", "M", 234567, 1, [8, 4, 10, 7, 8]),
-        ("Martinez, Sofia", "F", 345678, 0, [9, 9, 8, 10, 7]), # Estado 0 (libre), no se mostrará
-        ("Perez, Joaquin", "M", 456789, 1, [10, 9, 8, 7, 9]),
-        ("Rodriguez, Maria", "X", 567890, 1, [6, 8, 7, 5, 9])
-    ]
+    # Datos originales
+    ("Lopez, Lara", "F", 123456, 1, [8, 7, 9, 10, 6]),
+    ("Campos, Sebastian", "M", 234567, 1, [8, 4, 10, 7, 8]),
+    ("Martinez, Sofia", "F", 345678, 0, [9, 9, 8, 10, 7]), # Estado 0 (libre), no se mostrará
+    ("Perez, Joaquin", "M", 456789, 1, [10, 9, 8, 7, 9]),
+    ("Rodriguez, Maria", "X", 567890, 1, [6, 8, 7, 5, 9]),
+    ("Garcia, Mateo", "M", 678901, 1, [7, 8, 9, 6, 10]),
+    ("Fernandez, Valentina", "F", 789012, 1, [9, 9, 8, 10, 8]),
+    ("Gonzalez, Agustin", "M", 890123, 1, [5, 6, 7, 8, 5]),
+    ("Diaz, Camila", "F", 901234, 1, [10, 10, 9, 9, 10]),
+    ("Sanchez, Benjamin", "M", 112233, 1, [8, 7, 6, 9, 7]),
+    ("Romero, Julieta", "F", 223344, 1, [6, 5, 8, 7, 6]),
+    ("Gomez, Bautista", "M", 334455, 1, [9, 8, 10, 7, 9]),
+    ("Torres, Isabella", "F", 445566, 1, [7, 9, 8, 6, 8]),
+    ("Alvarez, Felipe", "M", 556677, 1, [10, 9, 9, 8, 10]),
+    ("Ruiz, Martina", "F", 667788, 1, [8, 8, 7, 9, 7]),
+    ("Vazquez, Thiago", "M", 778899, 1, [6, 7, 5, 8, 6]),
+    ("Sosa, Catalina", "F", 889900, 1, [9, 10, 9, 8, 9]),
+    ("Jimenez, Bruno", "M", 990011, 1, [7, 6, 8, 5, 7]),
+    ("Moreno, Emilia", "F", 101010, 1, [10, 8, 9, 7, 10]),
+    ("Herrera, Santino", "M", 202020, 1, [5, 7, 6, 8, 5]),
+    ("Aguirre, Victoria", "F", 303030, 1, [8, 9, 7, 10, 8]),
+    ("Flores, Lautaro", "M", 404040, 1, [9, 8, 10, 9, 9]),
+    ("Molina, Olivia", "F", 505050, 1, [7, 6, 8, 7, 9]),
+    ("Vega, Tomas", "M", 606060, 1, [6, 8, 7, 9, 6]),
+    ("Castro, Alma", "F", 707070, 1, [10, 9, 8, 9, 10]),
+    ("Ortiz, Dante", "M", 808080, 1, [8, 7, 9, 6, 8]),
+    ("Silva, Juana", "F", 909090, 1, [9, 8, 7, 10, 9]),
+    ("Nuñez, Ciro", "M", 121212, 1, [7, 5, 6, 8, 7]),
+    ("Rojas, Renata", "F", 232323, 1, [8, 10, 9, 7, 8]),
+    ("Peralta, Leon", "M", 343434, 1, [10, 9, 9, 8, 10])
+]
 
     for i in range(len(datos_estudiantes)):
         nombre, genero, legajo, estado, notas = datos_estudiantes[i]

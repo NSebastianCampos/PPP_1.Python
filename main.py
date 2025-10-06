@@ -1,6 +1,6 @@
 import biblioteca as bib
 
-# Definición de Estructuras de Datos 
+# --- Definición de Estructuras de Datos ---
 # Se inicializan las estructuras vacías, con capacidad para 30 estudiantes.
 CANTIDAD_ESTUDIANTES = 30
 CANTIDAD_MATERIAS = 5
@@ -14,6 +14,8 @@ promedios_estudiantes = [0.0] * CANTIDAD_ESTUDIANTES
 
 datos_cargados = False
 promedios_calculados = False
+
+intentos_invalidos = 0
 
 # --- Menú de Opciones ---
 while True:
@@ -32,18 +34,21 @@ while True:
     match opcion:
         case '1':
             datos_cargados = bib.cargar_datos(nombres_estudiantes, generos_estudiantes, legajos_estudiantes, estados_estudiantes, calificaciones_estudiantes)
+            intentos_invalidos = 0
         case '2':
             if datos_cargados:
                 proms = promedios_estudiantes if promedios_calculados else None
                 bib.mostrar_todos_los_estudiantes(nombres_estudiantes, generos_estudiantes, legajos_estudiantes, estados_estudiantes, calificaciones_estudiantes, proms)
             else:
                 print("Error: Primero debe cargar los datos (Opción 1).")
+            intentos_invalidos = 0
         case '3':
             if datos_cargados:
                 promedios_estudiantes = bib.calcular_todos_los_promedios(calificaciones_estudiantes, estados_estudiantes)
                 promedios_calculados = True
             else:
                 print("Error: Primero debe cargar los datos (Opción 1).")
+            intentos_invalidos = 0
         case '4':
             if datos_cargados:
                 if promedios_calculados:
@@ -52,11 +57,13 @@ while True:
                     print("Error: Primero debe calcular los promedios (Opción 3).")
             else:
                 print("Error: Primero debe cargar los datos (Opción 1).")
+            intentos_invalidos = 0
         case '5':
             if datos_cargados:
                 bib.mostrar_materias_mayor_promedio(calificaciones_estudiantes, estados_estudiantes)
             else:
                 print("Error: Primero debe cargar los datos (Opción 1).")
+            intentos_invalidos = 0
         case '6':
             if datos_cargados:
                 try:
@@ -67,6 +74,7 @@ while True:
                     print("Entrada inválida. El legajo debe ser un número.")
             else:
                 print("Error: Primero debe cargar los datos (Opción 1).")
+            intentos_invalidos = 0
         case '7':
             if datos_cargados:
                 try:
@@ -80,8 +88,13 @@ while True:
                     print("Entrada inválida. La materia debe ser un número.")
             else:
                 print("Error: Primero debe cargar los datos (Opción 1).")
+            intentos_invalidos = 0
         case '8':
             print("Saliendo del programa...")
             break
         case _:
-            print("Opción no válida. Por favor, intente de nuevo.")
+            intentos_invalidos += 1
+            print(f"Opción no válida. Intento {intentos_invalidos} de 3.")
+            if intentos_invalidos >= 3:
+                print("Ha superado el número máximo de intentos. El programa se cerrará.")
+                break 
