@@ -1,14 +1,12 @@
 import biblioteca as bib
 
-# --- Definición de Estructuras de Datos ---
-# Se inicializan las estructuras vacías, con capacidad para 30 estudiantes.
 CANTIDAD_ESTUDIANTES = 30
 CANTIDAD_MATERIAS = 5
 
 nombres_estudiantes = [""] * CANTIDAD_ESTUDIANTES
 generos_estudiantes = [""] * CANTIDAD_ESTUDIANTES
 legajos_estudiantes = [0] * CANTIDAD_ESTUDIANTES
-estados_estudiantes = [0] * CANTIDAD_ESTUDIANTES # 0: libre, 1: ocupado
+estados_estudiantes = [0] * CANTIDAD_ESTUDIANTES 
 calificaciones_estudiantes = [[0] * CANTIDAD_MATERIAS for _ in range(CANTIDAD_ESTUDIANTES)]
 promedios_estudiantes = [0.0] * CANTIDAD_ESTUDIANTES
 
@@ -17,7 +15,6 @@ promedios_calculados = False
 
 intentos_invalidos = 0
 
-# --- Menú de Opciones ---
 while True:
     print("\n--- Menú de Opciones ---")
     print("1. Cargar datos de estudiantes")
@@ -30,7 +27,10 @@ while True:
     print("8. Salir")
     
     opcion = input("Seleccione una opción: ")
-    
+   
+    if intentos_invalidos >= 3:
+                print("Ha superado el número máximo de intentos. El programa se cerrará.")
+                break  
     match opcion:
         case '1':
             datos_cargados = bib.cargar_datos(nombres_estudiantes, generos_estudiantes, legajos_estudiantes, estados_estudiantes, calificaciones_estudiantes)
@@ -39,31 +39,35 @@ while True:
             if datos_cargados:
                 proms = promedios_estudiantes if promedios_calculados else None
                 bib.mostrar_todos_los_estudiantes(nombres_estudiantes, generos_estudiantes, legajos_estudiantes, estados_estudiantes, calificaciones_estudiantes, proms)
+                intentos_invalidos = 0
             else:
-                print("Error: Primero debe cargar los datos (Opción 1).")
-            intentos_invalidos = 0
+                intentos_invalidos +=1
+                print("Error: Primero debe cargar los datos (Opción 1).") 
         case '3':
             if datos_cargados:
                 promedios_estudiantes = bib.calcular_todos_los_promedios(calificaciones_estudiantes, estados_estudiantes)
                 promedios_calculados = True
+                intentos_invalidos = 0
             else:
+                intentos_invalidos +=1
                 print("Error: Primero debe cargar los datos (Opción 1).")
-            intentos_invalidos = 0
         case '4':
             if datos_cargados:
                 if promedios_calculados:
                     bib.ordenar_estudiantes_por_promedio(nombres_estudiantes, generos_estudiantes, legajos_estudiantes, estados_estudiantes, calificaciones_estudiantes, promedios_estudiantes, 'DESC')
+                    intentos_invalidos = 0
                 else:
                     print("Error: Primero debe calcular los promedios (Opción 3).")
             else:
+                intentos_invalidos +=1
                 print("Error: Primero debe cargar los datos (Opción 1).")
-            intentos_invalidos = 0
         case '5':
             if datos_cargados:
                 bib.mostrar_materias_mayor_promedio(calificaciones_estudiantes, estados_estudiantes)
+                intentos_invalidos = 0
             else:
+                intentos_invalidos +=1
                 print("Error: Primero debe cargar los datos (Opción 1).")
-            intentos_invalidos = 0
         case '6':
             if datos_cargados:
                 try:
@@ -73,8 +77,8 @@ while True:
                 except ValueError:
                     print("Entrada inválida. El legajo debe ser un número.")
             else:
+                intentos_invalidos +=1
                 print("Error: Primero debe cargar los datos (Opción 1).")
-            intentos_invalidos = 0
         case '7':
             if datos_cargados:
                 try:
@@ -95,6 +99,3 @@ while True:
         case _:
             intentos_invalidos += 1
             print(f"Opción no válida. Intento {intentos_invalidos} de 3.")
-            if intentos_invalidos >= 3:
-                print("Ha superado el número máximo de intentos. El programa se cerrará.")
-                break 
