@@ -1,37 +1,70 @@
+'''
+Documentación General del Archivo:
+Esta es la biblioteca de funciones del programa. Contiene toda la lógica
+de negocio para validar, cargar, procesar, ordenar y mostrar los datos
+de los estudiantes, siguiendo un enfoque puramente algorítmico.
+'''
+
 # --- Funciones de Validación ---
-# Estas funciones verifican que un dato individual cumpla con las reglas del negocio.
+
+def es_numero(variable):
+    '''
+    Verifica si una variable es de tipo numérico (entero) de una manera algorítmica,
+    intentando una operación matemática. Es el reemplazo de isinstance o type.
+    '''
+    resultado = False
+    # Se intenta sumar cero a la variable. Si es un número, la operación
+    # funcionará. Si es texto u otro tipo, podría dar error.
+    # Como los datos son internos y controlados, podemos asumir que no dará error.
+    if variable + 0 == variable:
+        resultado = True
+    return resultado
 
 def validar_genero(genero):
-    # Se inicializa una variable "bandera" en False. Asumimos que el dato es incorrecto.
+    '''
+    Documentación:
+    Valida que el género sea uno de los caracteres permitidos ('F', 'M', 'X').
+    - Recibe: un string 'genero'.
+    - Devuelve: True si es válido, False si no lo es.
+    '''
     es_valido = False
-    # La condición verifica si el género es uno de los valores permitidos, tanto en mayúscula como en minúscula.
     if genero == 'F' or genero == 'f' or genero == 'M' or genero == 'm' or genero == 'X' or genero == 'x':
-        # Si la condición es verdadera, cambiamos la bandera a True.
         es_valido = True
-    # Se devuelve el valor final de la bandera (True o False).
     return es_valido
 
 def validar_legajo(legajo):
-    # Se inicializa la bandera en False.
+    '''
+    Documentación:
+    Valida que el legajo sea un número entero de 6 cifras.
+    - Recibe: una variable 'legajo'.
+    - Devuelve: True si es válido, False si no lo es.
+    '''
     es_valido = False
-    # Se verifica que el legajo sea un número (isinstance) Y que esté en el rango de 6 cifras.
-    if isinstance(legajo, int) and 100000 <= legajo <= 999999:
-        # Si ambas condiciones son ciertas, la validación es exitosa.
+    if es_numero(legajo) and 100000 <= legajo <= 999999:
         es_valido = True
     return es_valido
 
 def validar_calificacion(calificacion):
-    # Se inicializa la bandera en False.
+    '''
+    Documentación:
+    Valida que la calificación sea un número entero entre 1 y 10.
+    - Recibe: una variable 'calificacion'.
+    - Devuelve: True si es válido, False si no lo es.
+    '''
     es_valido = False
-    # Se verifica que la calificación sea un número Y que esté entre 1 y 10.
-    if isinstance(calificacion, int) and 1 <= calificacion <= 10:
-        # Si es correcto, se actualiza la bandera.
+    if es_numero(calificacion) and 1 <= calificacion <= 10:
         es_valido = True
     return es_valido
 
-#Carga de Datos Automática 
+# --- Carga y Visualización de Datos ---
+
 def cargar_datos(nombres, generos, legajos, estados, calificaciones):
-    # Esta es una lista de listas con los datos "hardcodeados" de los estudiantes.
+    '''
+    Documentación:
+    Carga datos predefinidos de estudiantes en las listas paralelas principales.
+    - Recibe: las 5 listas principales vacías.
+    - Devuelve: True para indicar que la carga se completó.
+    '''
     datos_estudiantes = [
         ["Lopez, Lara", "F", 123456, 1, [8, 7, 9, 10, 6]], ["Campos, Sebastian", "M", 234567, 1, [8, 4, 10, 7, 8]],
         ["Martinez, Sofia", "F", 345678, 0, [9, 9, 8, 10, 7]], ["Perez, Joaquin", "M", 456789, 1, [10, 9, 8, 7, 9]],
@@ -49,17 +82,12 @@ def cargar_datos(nombres, generos, legajos, estados, calificaciones):
         ["Silva, Juana", "F", 909090, 1, [9, 8, 7, 10, 9]], ["Nuñez, Ciro", "M", 121212, 1, [7, 5, 6, 8, 7]],
         ["Rojas, Renata", "F", 232323, 1, [8, 10, 9, 7, 8]], ["Peralta, Leon", "M", 343434, 1, [10, 9, 9, 8, 10]]
     ]
-    # Se inicializa un contador manual 'i' para el bucle while.
     i = 0
     while i < len(datos_estudiantes):
-        # Se obtiene la lista de datos del estudiante en la posición 'i'.
         estudiante_actual = datos_estudiantes[i]
-        # Se "desempaqueta" la lista manualmente, asignando cada valor a una variable.
         nombre = estudiante_actual[0]; genero = estudiante_actual[1]; legajo = estudiante_actual[2]; estado = estudiante_actual[3]; notas = estudiante_actual[4]
-        # Se valida cada dato individualmente.
         genero_valido = validar_genero(genero)
         legajo_valido = validar_legajo(legajo)
-        # Se prepara una bandera para validar la lista de notas.
         todas_las_notas_validas = True
         j = 0
         while j < len(notas):
@@ -68,75 +96,99 @@ def cargar_datos(nombres, generos, legajos, estados, calificaciones):
                 break
             j = j + 1
         
-        # Si todas las validaciones fueron exitosas...
         if genero_valido and legajo_valido and todas_las_notas_validas:
-            # ...se asignan los datos a las listas principales en la posición 'i'.
             nombres[i] = nombre; generos[i] = genero; legajos[i] = legajo; estados[i] = estado; calificaciones[i] = notas
         else:
             print("Error en los datos precargados del estudiante " + nombre + ". No se cargó.")
-        # Se incrementa el contador principal para pasar al siguiente estudiante.
         i = i + 1
     
     print("Datos cargados y validados correctamente.")
     return True
 
 def mostrar_un_estudiante(indice, nombre, genero, legajo, notas, promedio=None):
-    # Se prepara la variable para el promedio, con "N/C" (No Calculado) por defecto.
+    '''
+    Documentación:
+    Formatea y muestra en una sola línea los datos de un único estudiante.
+    - Recibe: los datos de un estudiante.
+    - No devuelve nada, solo imprime en pantalla.
+    '''
     promedio_str = "N/C"
     if promedio is not None:
-        promedio_str = str(promedio) # Se convierte a string para poder mostrarlo.
+        promedio_str = str(promedio)
+
+    notas_str = ""
+    k = 0
+    while k < len(notas):
+        notas_str = notas_str + str(notas[k])
+        if k < len(notas) - 1:
+            notas_str = notas_str + " - "
+        k = k + 1
     
-    # Se calcula el padding (espacios de relleno) manualmente para alinear el texto.
     legajo_str = str(legajo)
     padding_legajo = " " * (10 - len(legajo_str))
     padding_nombre = " " * (25 - len(nombre))
     padding_genero = " " * (8 - len(genero))
+    
+    # --- CAMBIO: Se define un ancho fijo para la columna de notas y se calcula el padding ---
+    ancho_columna_notas = 25
+    padding_notas = " " * (ancho_columna_notas - len(notas_str))
 
-    # Se construye la línea de texto a imprimir concatenando manualmente cada dato con su padding.
-    linea = legajo_str + padding_legajo + nombre + padding_nombre + genero + padding_genero + str(notas)
-    if promedio is not None:
-        linea = linea + "  " + promedio_str
+    # --- CAMBIO: Se construye la línea con el nuevo padding para las notas ---
+    linea = legajo_str + padding_legajo + nombre + padding_nombre + genero + padding_genero + notas_str + padding_notas + promedio_str
+    
     print(linea)
 
 
 def mostrar_todos_los_estudiantes(nombres, generos, legajos, estados, calificaciones, promedios=None):
+    '''
+    Documentación:
+    Muestra una tabla con los datos de todos los estudiantes activos.
+    - Recibe: las 6 listas principales con datos.
+    - No devuelve nada, solo imprime en pantalla.
+    '''
     print("\n--- Listado de Estudiantes ---")
-    print("---------------------------------------------------------------------------")
-    print("Legajo      Nombre y Apellido    Género   Calificaciones       Promedio")
-    print("---------------------------------------------------------------------------")
-    # Se inicializa una bandera para saber si se mostró al menos un estudiante.
+    # --- CAMBIO: Se ajustan las líneas y el encabezado para el nuevo espaciado ---
+    print("------------------------------------------------------------------------------------")
+    print("Legajo    Nombre y Apellido      Género     Calificaciones      Promedio")
+    print("------------------------------------------------------------------------------------")
     encontro_alguno = False
     i = 0
     while i < len(estados):
-        # Se verifica si el estudiante en la posición 'i' está activo (estado 1).
         if estados[i] == 1:
             promedio_actual = None
             if promedios:
                 promedio_actual = promedios[i]
-            # Se llama a la función que imprime un solo estudiante.
             mostrar_un_estudiante(i, nombres[i], generos[i], legajos[i], calificaciones[i], promedio_actual)
-            encontro_alguno = True # Se marca que se encontró al menos uno.
+            encontro_alguno = True
         i = i + 1
-    # Al final, si la bandera nunca cambió, se informa que no había estudiantes.
     if not encontro_alguno:
         print("No hay estudiantes para mostrar.")
-    print("---------------------------------------------------------------------------")
+    print("------------------------------------------------------------------------------------")
 
 def calcular_promedio_estudiante(notas):
-    # Se inicializa un acumulador para la suma de las notas.
+    '''
+    Documentación:
+    Calcula el promedio de una lista de notas.
+    - Recibe: una lista de números (notas).
+    - Devuelve: el promedio como un número de punto flotante.
+    '''
     suma_total = 0
     i = 0
-    # Este bucle reemplaza a la función sum().
     while i < len(notas):
         suma_total = suma_total + notas[i]
         i = i + 1
-    # Se verifica que haya notas para evitar una división por cero.
     if len(notas) > 0:
         return suma_total / len(notas)
     else:
         return 0
 
 def calcular_todos_los_promedios(calificaciones, estados):
+    '''
+    Documentación:
+    Calcula el promedio de todos los estudiantes activos.
+    - Recibe: la matriz de calificaciones y la lista de estados.
+    - Devuelve: una lista con los promedios calculados.
+    '''
     promedios = [0.0] * len(calificaciones)
     i = 0
     while i < len(calificaciones):
@@ -147,7 +199,12 @@ def calcular_todos_los_promedios(calificaciones, estados):
     return promedios
 
 def ordenar_estudiantes_por_promedio(nombres, generos, legajos, estados, calificaciones, promedios, orden):
-    #logicaa manual para verificar si los promedios fueron calculados (reemplaza a any()).
+    '''
+    Documentación:
+    Ordena a los estudiantes por su promedio usando el algoritmo Bubble Sort.
+    - Recibe: todas las listas y un string 'orden' ('ASC' o 'DESC').
+    - No devuelve nada, pero modifica las listas y luego las muestra.
+    '''
     promedios_fueron_calculados = False
     i = 0
     while i < len(promedios):
@@ -160,7 +217,6 @@ def ordenar_estudiantes_por_promedio(nombres, generos, legajos, estados, calific
         print("Error: Primero debe calcular los promedios (Opción 3).")
         return
     
-    #algoritmo de Ordenamiento Burbuja (Bubble Sort)
     cantidad = len(promedios)
     i = 0
     while i < cantidad:
@@ -174,7 +230,6 @@ def ordenar_estudiantes_por_promedio(nombres, generos, legajos, estados, calific
                 if promedios[j] > promedios[j + 1]:
                     condicion = True
             
-            # Si la condición para intercambiar es verdadera, se permutan los elementos en TODAS las listas.
             if condicion:
                 aux_prom = promedios[j]; promedios[j] = promedios[j + 1]; promedios[j + 1] = aux_prom
                 aux_nom = nombres[j]; nombres[j] = nombres[j + 1]; nombres[j + 1] = aux_nom
@@ -189,12 +244,16 @@ def ordenar_estudiantes_por_promedio(nombres, generos, legajos, estados, calific
     mostrar_todos_los_estudiantes(nombres, generos, legajos, estados, calificaciones, promedios)
 
 def calcular_promedio_materias(calificaciones, estados):
-    # Función auxiliar para la opción 5. Calcula el promedio de cada columna de la matriz.
+    '''
+    Documentación:
+    Función auxiliar para la opción 5. Calcula el promedio general de cada materia.
+    - Recibe: la matriz de calificaciones y la lista de estados.
+    - Devuelve: una lista con el promedio de cada materia.
+    '''
     num_materias = len(calificaciones[0])
     suma_por_materia = [0] * num_materias
     contador_por_materia = [0] * num_materias
     
-    # Se recorre la matriz con bucles anidados para sumar las notas por materia.
     i = 0
     while i < len(calificaciones):
         if estados[i] == 1:
@@ -205,30 +264,33 @@ def calcular_promedio_materias(calificaciones, estados):
                 j = j + 1
         i = i + 1
     
-    # Se calculan los promedios finales.
     promedios_materias = [0.0] * num_materias
     k = 0
     while k < num_materias:
         if contador_por_materia[k] > 0:
             promedios_materias[k] = suma_por_materia[k] / contador_por_materia[k]
         k = k + 1
+        
     return promedios_materias
 
 def mostrar_materias_mayor_promedio(calificaciones, estados):
-    # Lógica de la Opción 5.
+    '''
+    Documentación:
+    Muestra la/s materia/s con el promedio general más alto.
+    - Recibe: la matriz de calificaciones y la lista de estados.
+    - No devuelve nada, solo imprime en pantalla.
+    '''
     promedios = calcular_promedio_materias(calificaciones, estados)
     
-    # Búsqueda manual del valor máximo (reemplazo de max()).
     mayor_promedio = 0.0
     if len(promedios) > 0:
-        mayor_promedio = promedios[0] # Se asume que el primero es el mayor.
+        mayor_promedio = promedios[0]
         i = 1
-        while i < len(promedios): # Se recorre desde el segundo.
+        while i < len(promedios):
             if promedios[i] > mayor_promedio:
-                mayor_promedio = promedios[i] # Si se encuentra uno mayor, se actualiza.
+                mayor_promedio = promedios[i]
             i = i + 1
     
-    # Se muestran las materias que coincidan con el mayor promedio encontrado.
     print("\n--- Materia/s con Mayor Promedio General (" + str(mayor_promedio) + ") ---")
     j = 0
     while j < len(promedios):
@@ -237,11 +299,15 @@ def mostrar_materias_mayor_promedio(calificaciones, estados):
         j = j + 1
 
 def buscar_estudiante_por_legajo(legajo_buscado, nombres, generos, legajos, estados, calificaciones, promedios):
-    # Lógica de la Opción 6: Búsqueda Secuencial.
+    '''
+    Documentación:
+    Busca un estudiante por su legajo y muestra sus datos si lo encuentra.
+    - Recibe: el legajo a buscar y todas las listas.
+    - No devuelve nada, solo imprime en pantalla.
+    '''
     encontrado = False
     i = 0
     while i < len(legajos):
-        # Se busca un estudiante activo cuyo legajo coincida.
         if estados[i] == 1 and legajos[i] == legajo_buscado:
             print("\n--- Estudiante Encontrado ---")
             promedio_actual = None
@@ -249,28 +315,30 @@ def buscar_estudiante_por_legajo(legajo_buscado, nombres, generos, legajos, esta
                 promedio_actual = promedios[i]
             mostrar_un_estudiante(i, nombres[i], generos[i], legajos[i], calificaciones[i], promedio_actual)
             encontrado = True
-            break # Se detiene el bucle porque ya se encontró al estudiante.
+            break
         i = i + 1
-    # Si el bucle termina y no se encontró, se informa al usuario.
+            
     if not encontrado:
         print("No se encontró ningún estudiante activo con el legajo " + str(legajo_buscado) + ".")
 
 def contar_repeticion_calificaciones(calificaciones, num_materia, estados):
-    # Lógica de la Opción 7: Array de Conteo.
+    '''
+    Documentación:
+    Cuenta cuántas veces se repite cada calificación en una materia específica.
+    - Recibe: calificaciones, número de materia y estados.
+    - Devuelve: una lista de 10 elementos con el conteo de cada nota.
+    '''
     if not (1 <= num_materia <= len(calificaciones[0])):
         print("Número de materia inválido.")
-        return None # Devuelve None si la materia no existe.
+        return None 
 
     indice_materia = num_materia - 1 
-    # Se crea una lista para contar, con 10 posiciones (para notas de 1 a 10).
     conteo_notas = [0] * 10
     
     i = 0
     while i < len(calificaciones):
         if estados[i] == 1:
             nota = calificaciones[i][indice_materia]
-            # Se usa el valor de la nota para determinar qué contador incrementar.
-            # Se resta 1 porque las notas son de 1-10 y los índices de 0-9.
             conteo_notas[nota - 1] = conteo_notas[nota - 1] + 1
         i = i + 1
         

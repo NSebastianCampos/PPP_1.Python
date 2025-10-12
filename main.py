@@ -1,12 +1,16 @@
-#Se importa el archivo 'biblioteca.py' y se le da un alias (un nombre más corto) 'bib'.
+'''
+Este es el archivo principal del programa. Se encarga de controlar el flujo
+del menú interactivo, gestionar la interacción con el usuario y llamar a las
+funciones de la biblioteca para procesar los datos.
+'''
+
 import biblioteca as bib
 
-#Constantes Globales 
+# --- Constantes Globales ---
 CANTIDAD_ESTUDIANTES = 30
 CANTIDAD_MATERIAS = 5
 
-#Inicialización de Listas 
-#Se crean las listas paralelas que contendrán todos los datos.
+# --- Inicialización de Listas ---
 nombres_estudiantes = [""] * CANTIDAD_ESTUDIANTES
 generos_estudiantes = [""] * CANTIDAD_ESTUDIANTES
 legajos_estudiantes = [0] * CANTIDAD_ESTUDIANTES
@@ -14,15 +18,14 @@ estados_estudiantes = [0] * CANTIDAD_ESTUDIANTES
 calificaciones_estudiantes = [[0] * CANTIDAD_MATERIAS for _ in range(CANTIDAD_ESTUDIANTES)]
 promedios_estudiantes = [0.0] * CANTIDAD_ESTUDIANTES
 
-#Banderas de Control y Contadores ---
+# --- Banderas de Control y Contadores ---
 datos_cargados = False
 promedios_calculados = False
 intentos_invalidos = 0
 seguir_en_menu = True
 
-#bucle Principal del Menú ---
+# --- Bucle Principal del Menú ---
 while seguir_en_menu:
-    #Se imprime el menú de opciones en la consola.
     print("\n--- Menú de Opciones ---")
     print("1. Cargar datos de estudiantes (Automático)")
     print("2. Mostrar todos los datos de los estudiantes")
@@ -33,22 +36,17 @@ while seguir_en_menu:
     print("7. Contar calificaciones por materia")
     print("8. Salir")
 
-    #Se captura la elección del usuario.
     opcion = input("Seleccione una opción: ")
 
-    #Se controla el número de intentos fallidos.
     if intentos_invalidos >= 3:
         print("Ha superado el número máximo de intentos. El programa se cerrará.")
         break
 
-    #Lógica del Menú con if/elif/else 
     if opcion == '1':
-        # Se llama a la función para cargar los datos y se actualiza la bandera.
         datos_cargados = bib.cargar_datos(nombres_estudiantes, generos_estudiantes, legajos_estudiantes, estados_estudiantes, calificaciones_estudiantes)
-        intentos_invalidos = 0 # Se reinicia el contador.
+        intentos_invalidos = 0
     
     elif opcion == '2':
-        # Se comprueba si los datos fueron cargados antes de continuar.
         if datos_cargados:
             proms = None
             if promedios_calculados:
@@ -61,7 +59,7 @@ while seguir_en_menu:
     elif opcion == '3':
         if datos_cargados:
             promedios_estudiantes = bib.calcular_todos_los_promedios(calificaciones_estudiantes, estados_estudiantes)
-            promedios_calculados = True # Se actualiza la bandera de promedios.
+            promedios_calculados = True
         else:
             intentos_invalidos = intentos_invalidos + 1
             print("Error: Primero debe cargar los datos (Opción 1).")
@@ -105,7 +103,6 @@ while seguir_en_menu:
             if materia_a_consultar_str.isdigit():
                 materia_a_consultar = int(materia_a_consultar_str)
                 conteo = bib.contar_repeticion_calificaciones(calificaciones_estudiantes, materia_a_consultar, estados_estudiantes)
-                # Se comprueba que el conteo no sea None (en caso de materia inválida).
                 if conteo is not None:
                     print("\n--- Repetición de Calificaciones en MATERIA_" + str(materia_a_consultar) + " ---")
                     i = 0
@@ -120,9 +117,8 @@ while seguir_en_menu:
 
     elif opcion == '8':
         print("Saliendo del programa...")
-        seguir_en_menu = False # Se cambia la bandera para terminar el bucle.
+        seguir_en_menu = False
         
     else:
-        # Bloque para opciones que no son válidas.
         intentos_invalidos = intentos_invalidos + 1
         print("Opción no válida. Intento " + str(intentos_invalidos) + " de 3.")
