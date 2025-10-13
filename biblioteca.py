@@ -7,15 +7,47 @@ de los estudiantes, siguiendo un enfoque puramente algorítmico.
 
 # --- Funciones de Validación ---
 
+def es_cadena_de_digitos(cadena):
+    '''
+    Documentación:
+    Verifica si todos los caracteres de un string son dígitos numéricos.
+    Es el reemplazo algorítmico del método .isdigit().
+    - Recibe: un string 'cadena'.
+    - Devuelve: True si todos son dígitos, False en caso contrario.
+    '''
+    # Se define una lista con los caracteres que consideramos dígitos.
+    digitos_validos = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+    # Se inicializa la bandera asumiendo que la cadena es válida.
+    es_valida = True
+    # Se recorre la cadena caracter por caracter con un bucle while.
+    i = 0
+    while i < len(cadena):
+        caracter_actual = cadena[i]
+        # Se prepara una bandera para verificar el caracter actual.
+        es_un_digito = False
+        j = 0
+        # Se recorre la lista de dígitos válidos para comparar.
+        while j < len(digitos_validos):
+            if caracter_actual == digitos_validos[j]:
+                es_un_digito = True
+                break # Si encontramos que es un dígito, no hace falta seguir comparando.
+            j = j + 1
+        
+        # Si, después de comparar con todos los dígitos válidos, la bandera
+        # 'es_un_digito' sigue en False, significa que el caracter no es un número.
+        if es_un_digito == False:
+            es_valida = False # La cadena completa no es válida.
+            break # Se detiene el bucle principal.
+        i = i + 1
+    return es_valida
+
 def es_numero(variable):
     '''
-    Verifica si una variable es de tipo numérico (entero) de una manera algorítmica,
-    intentando una operación matemática. Es el reemplazo de isinstance o type.
+    Verifica si una variable es de tipo numérico (entero) de una manera algorítmica.
     '''
     resultado = False
     # Se intenta sumar cero a la variable. Si es un número, la operación
-    # funcionará. Si es texto u otro tipo, podría dar error.
-    # Como los datos son internos y controlados, podemos asumir que no dará error.
+    # funcionará. Como los datos son internos y controlados, podemos asumir que no dará error.
     if variable + 0 == variable:
         resultado = True
     return resultado
@@ -128,12 +160,9 @@ def mostrar_un_estudiante(indice, nombre, genero, legajo, notas, promedio=None):
     padding_legajo = " " * (10 - len(legajo_str))
     padding_nombre = " " * (25 - len(nombre))
     padding_genero = " " * (8 - len(genero))
-    
-    # --- CAMBIO: Se define un ancho fijo para la columna de notas y se calcula el padding ---
     ancho_columna_notas = 25
     padding_notas = " " * (ancho_columna_notas - len(notas_str))
 
-    # --- CAMBIO: Se construye la línea con el nuevo padding para las notas ---
     linea = legajo_str + padding_legajo + nombre + padding_nombre + genero + padding_genero + notas_str + padding_notas + promedio_str
     
     print(linea)
@@ -147,9 +176,8 @@ def mostrar_todos_los_estudiantes(nombres, generos, legajos, estados, calificaci
     - No devuelve nada, solo imprime en pantalla.
     '''
     print("\n--- Listado de Estudiantes ---")
-    # --- CAMBIO: Se ajustan las líneas y el encabezado para el nuevo espaciado ---
     print("------------------------------------------------------------------------------------")
-    print("Legajo    Nombre y Apellido      Género     Calificaciones      Promedio")
+    print("Legajo      Nombre y Apellido         Género   Calificaciones             Promedio")
     print("------------------------------------------------------------------------------------")
     encontro_alguno = False
     i = 0

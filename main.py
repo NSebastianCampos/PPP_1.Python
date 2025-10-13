@@ -27,7 +27,6 @@ seguir_en_menu = True
 
 # --- Bucle Principal del Menú ---
 while seguir_en_menu:
-    # Se imprime el menú de opciones en la consola.
     print("\n--- Menú de Opciones ---")
     print("1. Cargar datos de estudiantes (Automático)")
     print("2. Mostrar todos los datos de los estudiantes")
@@ -38,23 +37,17 @@ while seguir_en_menu:
     print("7. Contar calificaciones por materia")
     print("8. Salir")
 
-    # Se captura la elección del usuario.
     opcion = input("Seleccione una opción: ")
 
-    # Se controla el número de intentos fallidos.
     if intentos_invalidos >= 3:
         print("Ha superado el número máximo de intentos. El programa se cerrará.")
         break
 
-    # --- CAMBIO: Se reemplaza la estructura if/elif/else por match-case según el requisito. ---
-    # La estructura match-case compara la variable 'opcion' con los diferentes 'case'.
     match opcion:
-        # Si 'opcion' es igual a '1', se ejecuta este bloque.
         case '1':
             datos_cargados = bib.cargar_datos(nombres_estudiantes, generos_estudiantes, legajos_estudiantes, estados_estudiantes, calificaciones_estudiantes)
             intentos_invalidos = 0
         
-        # Si 'opcion' es igual a '2', se ejecuta este bloque.
         case '2':
             if datos_cargados:
                 proms = None
@@ -93,7 +86,8 @@ while seguir_en_menu:
         case '6':
             if datos_cargados:
                 legajo_a_buscar_str = input("Ingrese el legajo a buscar: ")
-                if legajo_a_buscar_str.isdigit():
+                # CAMBIO: Se reemplaza .isdigit() por la nueva función de la biblioteca.
+                if bib.es_cadena_de_digitos(legajo_a_buscar_str):
                     legajo_a_buscar = int(legajo_a_buscar_str)
                     proms = None
                     if promedios_calculados:
@@ -109,7 +103,8 @@ while seguir_en_menu:
             if datos_cargados:
                 mensaje_input = "Ingrese el número de materia (1 a " + str(CANTIDAD_MATERIAS) + "): "
                 materia_a_consultar_str = input(mensaje_input)
-                if materia_a_consultar_str.isdigit():
+                # CAMBIO: Se reemplaza .isdigit() por la nueva función de la biblioteca.
+                if bib.es_cadena_de_digitos(materia_a_consultar_str):
                     materia_a_consultar = int(materia_a_consultar_str)
                     conteo = bib.contar_repeticion_calificaciones(calificaciones_estudiantes, materia_a_consultar, estados_estudiantes)
                     if conteo is not None:
@@ -128,7 +123,6 @@ while seguir_en_menu:
             print("Saliendo del programa...")
             seguir_en_menu = False
             
-        # El case '_' actúa como el 'else' final. Se ejecuta si 'opcion' no coincide con ningún caso anterior.
         case _:
             intentos_invalidos = intentos_invalidos + 1
             print("Opción no válida. Intento " + str(intentos_invalidos) + " de 3.")
