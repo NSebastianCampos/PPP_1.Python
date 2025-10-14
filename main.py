@@ -1,5 +1,4 @@
 '''
-Documentación General del Archivo:
 Este es el archivo principal del programa. Se encarga de controlar el flujo
 del menú interactivo, gestionar la interacción con el usuario y llamar a las
 funciones de la biblioteca para procesar los datos.
@@ -86,7 +85,6 @@ while seguir_en_menu:
         case '6':
             if datos_cargados:
                 legajo_a_buscar_str = input("Ingrese el legajo a buscar: ")
-                # CAMBIO: Se reemplaza .isdigit() por la nueva función de la biblioteca.
                 if bib.es_cadena_de_digitos(legajo_a_buscar_str):
                     legajo_a_buscar = int(legajo_a_buscar_str)
                     proms = None
@@ -103,7 +101,6 @@ while seguir_en_menu:
             if datos_cargados:
                 mensaje_input = "Ingrese el número de materia (1 a " + str(CANTIDAD_MATERIAS) + "): "
                 materia_a_consultar_str = input(mensaje_input)
-                # CAMBIO: Se reemplaza .isdigit() por la nueva función de la biblioteca.
                 if bib.es_cadena_de_digitos(materia_a_consultar_str):
                     materia_a_consultar = int(materia_a_consultar_str)
                     conteo = bib.contar_repeticion_calificaciones(calificaciones_estudiantes, materia_a_consultar, estados_estudiantes)

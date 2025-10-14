@@ -1,5 +1,4 @@
 '''
-Documentación General del Archivo:
 Esta es la biblioteca de funciones del programa. Contiene toda la lógica
 de negocio para validar, cargar, procesar, ordenar y mostrar los datos
 de los estudiantes, siguiendo un enfoque puramente algorítmico.
@@ -9,7 +8,6 @@ de los estudiantes, siguiendo un enfoque puramente algorítmico.
 
 def es_cadena_de_digitos(cadena):
     '''
-    Documentación:
     Verifica si todos los caracteres de un string son dígitos numéricos.
     Es el reemplazo algorítmico del método .isdigit().
     - Recibe: un string 'cadena'.
@@ -54,7 +52,6 @@ def es_numero(variable):
 
 def validar_genero(genero):
     '''
-    Documentación:
     Valida que el género sea uno de los caracteres permitidos ('F', 'M', 'X').
     - Recibe: un string 'genero'.
     - Devuelve: True si es válido, False si no lo es.
@@ -66,7 +63,6 @@ def validar_genero(genero):
 
 def validar_legajo(legajo):
     '''
-    Documentación:
     Valida que el legajo sea un número entero de 6 cifras.
     - Recibe: una variable 'legajo'.
     - Devuelve: True si es válido, False si no lo es.
@@ -78,7 +74,6 @@ def validar_legajo(legajo):
 
 def validar_calificacion(calificacion):
     '''
-    Documentación:
     Valida que la calificación sea un número entero entre 1 y 10.
     - Recibe: una variable 'calificacion'.
     - Devuelve: True si es válido, False si no lo es.
@@ -92,7 +87,6 @@ def validar_calificacion(calificacion):
 
 def cargar_datos(nombres, generos, legajos, estados, calificaciones):
     '''
-    Documentación:
     Carga datos predefinidos de estudiantes en las listas paralelas principales.
     - Recibe: las 5 listas principales vacías.
     - Devuelve: True para indicar que la carga se completó.
@@ -139,7 +133,6 @@ def cargar_datos(nombres, generos, legajos, estados, calificaciones):
 
 def mostrar_un_estudiante(indice, nombre, genero, legajo, notas, promedio=None):
     '''
-    Documentación:
     Formatea y muestra en una sola línea los datos de un único estudiante.
     - Recibe: los datos de un estudiante.
     - No devuelve nada, solo imprime en pantalla.
@@ -170,7 +163,6 @@ def mostrar_un_estudiante(indice, nombre, genero, legajo, notas, promedio=None):
 
 def mostrar_todos_los_estudiantes(nombres, generos, legajos, estados, calificaciones, promedios=None):
     '''
-    Documentación:
     Muestra una tabla con los datos de todos los estudiantes activos.
     - Recibe: las 6 listas principales con datos.
     - No devuelve nada, solo imprime en pantalla.
@@ -195,7 +187,6 @@ def mostrar_todos_los_estudiantes(nombres, generos, legajos, estados, calificaci
 
 def calcular_promedio_estudiante(notas):
     '''
-    Documentación:
     Calcula el promedio de una lista de notas.
     - Recibe: una lista de números (notas).
     - Devuelve: el promedio como un número de punto flotante.
@@ -212,7 +203,6 @@ def calcular_promedio_estudiante(notas):
 
 def calcular_todos_los_promedios(calificaciones, estados):
     '''
-    Documentación:
     Calcula el promedio de todos los estudiantes activos.
     - Recibe: la matriz de calificaciones y la lista de estados.
     - Devuelve: una lista con los promedios calculados.
@@ -228,7 +218,6 @@ def calcular_todos_los_promedios(calificaciones, estados):
 
 def ordenar_estudiantes_por_promedio(nombres, generos, legajos, estados, calificaciones, promedios, orden):
     '''
-    Documentación:
     Ordena a los estudiantes por su promedio usando el algoritmo Bubble Sort.
     - Recibe: todas las listas y un string 'orden' ('ASC' o 'DESC').
     - No devuelve nada, pero modifica las listas y luego las muestra.
@@ -273,7 +262,6 @@ def ordenar_estudiantes_por_promedio(nombres, generos, legajos, estados, calific
 
 def calcular_promedio_materias(calificaciones, estados):
     '''
-    Documentación:
     Función auxiliar para la opción 5. Calcula el promedio general de cada materia.
     - Recibe: la matriz de calificaciones y la lista de estados.
     - Devuelve: una lista con el promedio de cada materia.
@@ -303,7 +291,6 @@ def calcular_promedio_materias(calificaciones, estados):
 
 def mostrar_materias_mayor_promedio(calificaciones, estados):
     '''
-    Documentación:
     Muestra la/s materia/s con el promedio general más alto.
     - Recibe: la matriz de calificaciones y la lista de estados.
     - No devuelve nada, solo imprime en pantalla.
@@ -328,7 +315,6 @@ def mostrar_materias_mayor_promedio(calificaciones, estados):
 
 def buscar_estudiante_por_legajo(legajo_buscado, nombres, generos, legajos, estados, calificaciones, promedios):
     '''
-    Documentación:
     Busca un estudiante por su legajo y muestra sus datos si lo encuentra.
     - Recibe: el legajo a buscar y todas las listas.
     - No devuelve nada, solo imprime en pantalla.
@@ -351,7 +337,6 @@ def buscar_estudiante_por_legajo(legajo_buscado, nombres, generos, legajos, esta
 
 def contar_repeticion_calificaciones(calificaciones, num_materia, estados):
     '''
-    Documentación:
     Cuenta cuántas veces se repite cada calificación en una materia específica.
     - Recibe: calificaciones, número de materia y estados.
     - Devuelve: una lista de 10 elementos con el conteo de cada nota.
