@@ -4,7 +4,7 @@ de negocio para validar, cargar, procesar, ordenar y mostrar los datos
 de los estudiantes, siguiendo un enfoque puramente algorítmico.
 '''
 
-# --- Funciones de Validación ---
+# Funciones de Validación 
 
 def es_cadena_de_digitos(cadena):
     '''
@@ -83,7 +83,7 @@ def validar_calificacion(calificacion):
         es_valido = True
     return es_valido
 
-# --- Carga y Visualización de Datos ---
+#Carga y Visualización de Datos
 
 def cargar_datos(nombres, generos, legajos, estados, calificaciones):
     '''

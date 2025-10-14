@@ -6,11 +6,11 @@ funciones de la biblioteca para procesar los datos.
 
 import biblioteca as bib
 
-# --- Constantes Globales ---
+# Constantes Globales
 CANTIDAD_ESTUDIANTES = 30
 CANTIDAD_MATERIAS = 5
 
-# --- Inicialización de Listas ---
+# Inicialización de Listas
 nombres_estudiantes = [""] * CANTIDAD_ESTUDIANTES
 generos_estudiantes = [""] * CANTIDAD_ESTUDIANTES
 legajos_estudiantes = [0] * CANTIDAD_ESTUDIANTES
@@ -18,13 +18,13 @@ estados_estudiantes = [0] * CANTIDAD_ESTUDIANTES
 calificaciones_estudiantes = [[0] * CANTIDAD_MATERIAS for _ in range(CANTIDAD_ESTUDIANTES)]
 promedios_estudiantes = [0.0] * CANTIDAD_ESTUDIANTES
 
-# --- Banderas de Control y Contadores ---
+#  Banderas de Control y Contadores 
 datos_cargados = False
 promedios_calculados = False
 intentos_invalidos = 0
 seguir_en_menu = True
 
-# --- Bucle Principal del Menú ---
+#  Bucle Principal del Menú
 while seguir_en_menu:
     print("\n--- Menú de Opciones ---")
     print("1. Cargar datos de estudiantes (Automático)")
